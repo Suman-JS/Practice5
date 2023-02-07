@@ -1,0 +1,67 @@
+﻿body {
+    background-color: #f7f7f7;
+}
+
+#LoginFormLayout {
+    background-color: whitesmoke;
+    padding: 40px 50px;
+    margin-top: 20px;
+}
+
+    #LoginFormLayout #LoginForm {
+        padding-top: 0;
+        padding-left: 50px;
+    }
+
+        #LoginFormLayout #LoginForm h3 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #LoginFormLayout #LoginForm input[type="text"],
+        #LoginFormLayout #LoginForm .input-group-addon {
+            background: white;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            vertical-align: middle;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+            
+        }
+
+        #LoginFormLayout #LoginForm .input-group-addon {
+            padding: 0;
+            padding-left: 5px;
+            vertical-align: middle;
+           
+           
+        }
+
+.input-group-addon {
+    margin-left: 1em;
+    vertical-align: middle;
+    text-align : center;
+}
+
+#LoginFormLayout #LoginForm input[type="submit"] {
+    background-color: #5a94f3;
+    border-radius: 50px;
+    height: 40px;
+    width: 100px;
+    margin-top: 20px;
+    background-color: red;
+    transition : 0.3s;
+}
+
+    #LoginFormLayout #LoginForm input[type="submit"]:hover {
+        background-color: darkcyan;
+        transform :scale(1.2);
+    }
+
+#LoginFormLayout #loginImage {
+    border-left: 1px solid #ddd;
+}

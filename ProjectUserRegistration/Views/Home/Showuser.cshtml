@@ -1,0 +1,141 @@
+﻿@model IEnumerable<ProjectUserRegistration.tbl_User>
+
+@{
+    ViewBag.Title = "Showuser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function confirmDelete() {
+        return confirm("Do You Really Want To Delete This User?")
+    }
+</script>
+
+<h2 class="text-center">Show User Data</h2>
+<br />
+<br />
+<div class="container-fluid">
+    <div class="row">
+        @using(Html.BeginForm("Showuser","Home",FormMethod.Post))
+            {
+                <div class="col-12">
+                    <div class="form-check-inline">
+                        <div class="col-md-12">
+                            @Html.TextBox("searchText",null, new {@class = "form-control",@placeholder = "Type Here To Search...."})
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn btn-primary" type="submit"><i class="fa-sharp fa-solid fa-magnifying-glass"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            }
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped ">
+                <tr>
+                    <th>
+                        @Html.ActionLink("UserName","Showuser",new {SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Dsc" : "Asc"), SortBy = "UserName",PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Email", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Dsc" : "Asc"), SortBy = "Email",PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Password", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Dsc" : "Asc"), SortBy = "Password", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Gender", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Dsc" : "Asc"), SortBy = "Gender", PageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber })
+                    </th>
+                    <th>Actions</th>
+                </tr>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="12">No Matching User Found!!</td>
+                    </tr>  
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Userprofile", new { id = item.UserId }, htmlAttributes: new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, htmlAttributes: new { @class = "btn btn-danger", onclick = "return confirmDelete()" })
+                            </td>
+                        </tr>
+                    }
+                }
+                </table>
+            <br />
+            
+            <nav aria-label="page navigation">
+                @{
+                    double totalPages = ViewBag.TotalPages;
+                    if(totalPages > 1)
+                    {
+                          <ul class="pagination justify-content-center">
+                               @if (ViewBag.PageNumber == 1)
+                                {
+                                    <li class="page-link disabled">
+                                        @Html.ActionLink("Previous", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :                  ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber =                  ViewBag.PageNumber })
+                                    </li>
+                                }
+                               
+                                else
+                                {
+                                     <li class="page-link">
+                                         @Html.ActionLink("Previous", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :                 ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber =                  ViewBag.PageNumber - 1 })
+                                     </li>
+                                }
+
+                               @for (int i = 1; i <= totalPages; i++)
+                                {
+                                     if (i == ViewBag.PageNumber)
+                                     {
+                                         <li class="page-link active">
+                                              @Html.ActionLink(i.ToString(), "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :              ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber = i })
+                                         </li>
+
+                                     }
+                                     else
+                                     {
+                                         <li class="page-link">
+                                              @Html.ActionLink(i.ToString(), "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :              ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber = i })
+                                         </li>
+                                     }
+                                }
+
+                               @if (ViewBag.PageNumber == totalPages)
+                                {
+                                     <li class="page-link disabled">
+                                          @Html.ActionLink("Next", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :                        ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber =                  ViewBag.PageNumber })
+                                     </li>
+                                }
+                                else
+                                {
+                                     <li class="page-link">
+                                         @Html.ActionLink("Next", "Showuser", new { SortOrder = ViewBag.SortOrder == null ? "Asc" :                     ViewBag.SortOrder, SortBy = ViewBag.SortBy == null ? "UserName" : ViewBag.SortBy, PageNumber =                  ViewBag.PageNumber + 1 })
+                                     </li>
+                                }
+
+                          </ul>
+                    }
+            }
+            </nav>
+        </div>
+    </div>
+</div>
